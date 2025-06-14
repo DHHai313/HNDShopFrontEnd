@@ -1,0 +1,159 @@
+/* Header styles */
+.navbar-brand {
+  font-size: 1.5rem !important;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.navbar {
+  background: linear-gradient(180deg, #2E9BFB 0%, #1D52E7 100%);
+  
+}
+.navbar-nav {
+  display: flex;
+  justify-content: space-between; /* Căn đều khoảng cách hai bên */
+  width: 100%;
+  padding: 0 120px;
+}
+.navbar .dropdown-menu{
+  color: #ffffff;
+}
+/* Search bar styles */
+.input-group .form-control {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px 0 0 25px;
+  font-size: 0.95rem;
+}
+
+.input-group .btn {
+  border: none;
+  border-radius: 0 25px 25px 0;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-left: 1px solid #dee2e6;
+  transition: background-color 0.3s ease;
+}
+
+.input-group .btn:hover {
+  background-color: #e9ecef;
+}
+
+/* Header links */
+.navbar .text-white:hover {
+  color: #d0e7ff !important;
+  text-decoration: none;
+}
+
+/* Badge styles */
+.badge {
+  font-size: 0.7rem;
+  padding: 4px 8px;
+}
+
+/* Second navbar styles */
+.nav-link {
+  color: #ffffff !important;
+  font-weight: 500;
+  padding: 12px 15px !important;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #4A90E2 !important;
+  background-color: #f5f7fa;
+}
+
+.nav-link.text-primary {
+  color: #4A90E2 !important;
+  background-color: #f0f5ff;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* Dropdown styles */
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  margin-top: 8px;
+  min-width: 200px;
+}
+
+.dropdown-item {
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #4A90E2;
+  color: white;
+}
+
+/* Icon styles */
+.fas {
+  color: inherit;
+  margin-right: 8px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.2rem !important;
+  }
+  
+  .input-group {
+    max-width: 100% !important;
+    margin: 10px 0 !important;
+  }
+  
+  .navbar .d-flex {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .navbar .d-flex a {
+    margin: 5px 0;
+    text-align: center;
+  }
+  
+  .nav-link {
+    padding: 10px 10px !important;
+  }
+}
+
+/* Animation cho dropdown */
+.dropdown-menu {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  display: block;
+  visibility: hidden;
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* Hover effect cho navbar items */
+.nav-item {
+  position: relative;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: #4A90E2;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover::after {
+  width: 100%;
+  left: 0;
+}

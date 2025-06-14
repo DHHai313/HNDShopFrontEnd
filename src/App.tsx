@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import NavBar from './components/layout/navbar';
+import Footer from './components/layout/Footer';
+import Banner from './components/homepage/Banner';
+import AdCarousel from './components/homepage/AdCarousel';
+import ListProduct from './components/product/ListProduct';
+import { getAllProduct } from './components/api/ProductAPI';
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('');
+  getAllProduct().then().catch();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Banner />
+      <NavBar />
+      <AdCarousel />
+      <ListProduct />
+      <Footer />
     </div>
   );
 }
