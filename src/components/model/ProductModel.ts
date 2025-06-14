@@ -4,7 +4,7 @@ class ProductModel {
     private _description?: string;
     private _name?: string;
     private _price?: number;
-    private _stock_quantity?: number;
+    private _stock?: number;
 
     constructor(
         id: number,
@@ -12,14 +12,14 @@ class ProductModel {
         description?: string,
         name?: string,
         price?: number,
-        stock_quantity?: number,
+        stock?: number,
     ) {
         this._id = id;
         this._brand = brand;
         this._description = description;
         this._name = name;
         this._price = price;
-        this._stock_quantity = stock_quantity;
+        this._stock = stock;
     }
 
     get id(): number {
@@ -62,12 +62,12 @@ class ProductModel {
         this._price = value;
     }
 
-    get stock_quantity(): number | undefined {
-        return this._stock_quantity;
+    get stock(): number | undefined {
+        return this._stock;
     }
 
-    set stock_quantity(value: number | undefined) {
-        this._stock_quantity = value;
+    set stock(value: number | undefined) {
+        this._stock = value;
     }
 }
 

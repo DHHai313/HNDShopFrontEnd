@@ -1,22 +1,22 @@
 import React from "react";
-import Product from "../../model/Product";
+import ProductModel from "../../model/ProductModel";
 
-interface ProductCartProps {
-    product: Product;
+interface ProductPropsInterface{
+    product: ProductModel
 }
 
-const ProductProps: React.FC<ProductCartProps>=({product})=>{
+const ProductProps: React.FC<ProductPropsInterface>=(props)=>{
     return(
         <div className="col-md-3 mt-2">
             <div className="card">
-                <img src={product.imgUrl} className="card-img-top"
+                <img src={"https://nguyencongpc.vn/media/product/250-21616-laptop-hp-zbook-firefly-14-g8-1a2f1av.jpg"} className="card-img-top"
                 style={{height: '300px'}} />
                 <div className="card-body">
-                    <h5 className="card-title">{product.name}</h5>
-                    <p className="card-text">{product.description}</p>
+                    <h5 className="card-title">{props.product.name}</h5>
+                    <p className="card-text">{props.product.description}</p>
                     <div className="price">
                         <span className="discounted-price">
-                            {product.price}
+                            {props.product.price}
                         </span>
                     </div>
                     <div className="row mt-2" role="group">

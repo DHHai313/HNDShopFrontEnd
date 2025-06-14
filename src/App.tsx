@@ -6,10 +6,10 @@ import Banner from './components/homepage/Banner';
 import AdCarousel from './components/homepage/AdCarousel';
 import ListProduct from './components/product/ListProduct';
 import { getAllProduct } from './components/api/ProductAPI';
-
+import { getAllProductx } from './components/api/ProductAPIx';
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
-  getAllProduct().then().catch();
+  // const [searchQuery, setSearchQuery] = useState('');
+  
   return (
     <div className="App">
       <Banner />

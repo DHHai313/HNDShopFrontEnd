@@ -11,13 +11,25 @@ async function request(url:string) {
     //neu tra ve ok
     return respone.json();
 }
-export async function getAllProduct():Promise<ProductModel[]> {
+export async function getAllProduct(): Promise<ProductModel[]> {
     const result: ProductModel[] = [];
-    //xac dinh endpoint
-    const url:string = 'http://localhost:8080/products';
-    //goi phuong thuc request
-    const respone = request(url);
-    console.log(respone);
+    const url: string = 'http://localhost:8080/products';
+    const response = await request(url);
+    const responseData = response._embedded.products;
+
+   for (const item of responseData) {
+    const product = new ProductModel(
+      item.id,              // ✅ không có dấu _
+      item.brand,
+      item.description,
+      item.name,
+      item.price,
+      item.stock
+    );
+    result.push(product);
+  }
 
     return result;
 }
+
+
