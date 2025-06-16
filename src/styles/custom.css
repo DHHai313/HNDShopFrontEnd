@@ -1,0 +1,6 @@
+.text-truncate-multiline {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* Giới hạn số dòng */
+  -webkit-box-orient: vertical;
+}

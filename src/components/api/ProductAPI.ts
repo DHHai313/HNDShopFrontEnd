@@ -1,20 +1,11 @@
 import React from "react";
 import ProductModel from "../model/ProductModel";
+import { my_request } from "./Request";
 
-async function request(url:string) {
-    //truy van den duong dan
-    const respone = await fetch(url);
-    //neu tra ve loi
-    if(!respone.ok){
-        throw new Error(`Cannot access ${url}`)
-    }
-    //neu tra ve ok
-    return respone.json();
-}
 export async function getAllProduct(): Promise<ProductModel[]> {
     const result: ProductModel[] = [];
     const url: string = 'http://localhost:8080/products';
-    const response = await request(url);
+    const response = await my_request(url);
     const responseData = response._embedded.products;
 
    for (const item of responseData) {

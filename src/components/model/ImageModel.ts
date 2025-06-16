@@ -1,9 +1,9 @@
 class ImageModel {
     private _id: number;
-    private _icon_url?: string;
+    private _icon_url: string;
     private _name?: string;
 
-    constructor(id: number, icon_url?: string, name?: string) {
+    constructor(id: number, icon_url: string, name?: string) {
         this._id = id;
         this._icon_url = icon_url;
         this._name = name;
@@ -17,11 +17,11 @@ class ImageModel {
         this._id = value;
     }
 
-    get icon_url(): string | undefined {
+    get icon_url(): string {
         return this._icon_url;
     }
 
-    set icon_url(value: string | undefined) {
+    set icon_url(value: string ) {
         this._icon_url = value;
     }
 

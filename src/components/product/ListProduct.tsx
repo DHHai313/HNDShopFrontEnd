@@ -3,7 +3,7 @@ import ProductProps from "./components/ProductProps";
 import ProductModel from "../model/ProductModel";
 import { getAllProduct } from "../api/ProductAPI";
 import { error } from "console";
-import { getAllProductx } from "../api/ProductAPIx";
+
 
 const ListProduct: React.FC=() =>{
   const [listProduct, setListProduct] = useState<ProductModel[]>([]);
@@ -11,7 +11,7 @@ const ListProduct: React.FC=() =>{
   const [isError, setIsError] = useState(null);
   //useEffect
   useEffect(()=>{
-      getAllProductx().then(
+      getAllProduct().then(
         productData => {
           setListProduct(productData);
           setLoadingData(false);

@@ -2,26 +2,26 @@ import React from "react";
 
 function AdCarousel() {
   return (
-    <div className="d-flex justify-content-center" style={{ padding: "0 20px" }}>
+    <div className="d-flex justify-content-center mt-4" style={{ padding: "0 20px" }}>
       <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style={{ maxWidth: "1200px", width: "100%" }}>
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img
-              className="d-block w-100"
-              src="https://nguyencongpc.vn/media/banner/23_Maye2a8f86ab726d7530efb2ff71335b32d.webp"
+              className="d-block w-100" style={{ height: "300px", objectFit: "cover" }}
+              src="https://nguyencongpc.vn/media/banner/23_Mayb008ed36a307cebda4cef6aee71559ac.jpg"
               alt="First slide"
             />
           </div>
           <div className="carousel-item">
             <img
-              className="d-block w-100"
+              className="d-block w-100" style={{ height: "300px", objectFit: "cover" }}
               src="https://nguyencongpc.vn/media/banner/23_May970ab868bec215213d39b1fc95113d7b.jpg"
               alt="Second slide"
             />
           </div>
           <div className="carousel-item">
             <img
-              className="d-block w-100"
+              className="d-block w-100" style={{ height: "300px", objectFit: "cover" }}
               src="https://nguyencongpc.vn/media/banner/27_Mayb52e55a7a35c77463bd3266b1420b60f.jpg"
               alt="Third slide"
             />

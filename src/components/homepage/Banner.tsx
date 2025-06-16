@@ -4,7 +4,7 @@ function Banner() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [
     "https://nguyencongpc.vn/media/banner/27_Mayd0bb4ace3413e52c8c9c0f528a7a3159.jpg",
-    "https://nguyencongpc.vn/media/banner/26_May49d0b95fbd468a8d6ca75c66ea927318.jpg", // Thêm URL ảnh khác
+    
     "https://nguyencongpc.vn/media/banner/27_Maydf4e66449b333a029b08038347c6199e.jpg", // Thêm URL ảnh khác
   ];
 

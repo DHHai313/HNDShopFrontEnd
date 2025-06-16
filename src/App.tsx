@@ -6,7 +6,10 @@ import Banner from './components/homepage/Banner';
 import AdCarousel from './components/homepage/AdCarousel';
 import ListProduct from './components/product/ListProduct';
 import { getAllProduct } from './components/api/ProductAPI';
-import { getAllProductx } from './components/api/ProductAPIx';
+// index.tsx hoặc App.tsx
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js"; // ⬅️ Rất quan trọng: để Carousel hoạt động
+
 function App() {
   // const [searchQuery, setSearchQuery] = useState('');
   
