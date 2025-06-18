@@ -2,11 +2,20 @@ import React from "react";
 import ProductModel from "../model/ProductModel";
 import { my_request } from "./Request";
 
-export async function getAllProduct(): Promise<ProductModel[]> {
+interface ResultInterface{
+  resultProduct: ProductModel[];
+  totalPages: number;
+  totalElements: number;
+}
+
+export async function getProduct(url: string): Promise<ResultInterface> {
     const result: ProductModel[] = [];
-    const url: string = 'http://localhost:8080/products';
+    
     const response = await my_request(url);
     const responseData = response._embedded.products;
+  //lay thong tin trang
+  const totalPages: number = response.page.totalPages;
+  const totalElements:number = response.page.totalElements;
 
    for (const item of responseData) {
     const product = new ProductModel(
@@ -20,7 +29,15 @@ export async function getAllProduct(): Promise<ProductModel[]> {
     result.push(product);
   }
 
-    return result;
+    return {resultProduct: result, totalPages: totalPages,totalElements: totalElements};
+}
+
+export async function getAllProduct(currentPage:number): Promise<ResultInterface> {
+    
+    const url: string = `http://localhost:8080/products?sort=id,asc&size=8&page=${currentPage}`;
+    
+
+    return getProduct(url);
 }
 
 
