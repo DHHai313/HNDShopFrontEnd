@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
+import { KeyboardEvent } from 'react';
 import './navbar.css';
 import { useState } from 'react';
+interface NavBarProps{
+    searchQuery: string;
+    setSearchQuery: (keyWord:string) => void;
+}
 
-function NavBar() {
-    const [searchQuery, setSearchQuery] = useState('');
+function NavBar({searchQuery, setSearchQuery}: NavBarProps) {
+    const [tempSearchQuery, setTempSearchQuery] = useState('');
 
+    const onSearchInputChange = (e: ChangeEvent<HTMLInputElement>) =>{
+        setTempSearchQuery(e.target.value);
+    }
+    const handleSearch = ()=>{
+        setSearchQuery(tempSearchQuery);
+    }
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) =>{
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    }
     return (
         <div className="App">
             {/* Header chính */}
@@ -23,10 +39,11 @@ function NavBar() {
                                 type="text"
                                 className="form-control"
                                 placeholder="Tìm máy tính, laptop, camera..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
+                                value={tempSearchQuery}
+                                onChange={onSearchInputChange}
+                                onKeyDown={handleKeyDown}
                             />
-                            <button className="btn btn-light" type="button">
+                            <button className="btn btn-light" type="button" onClick={handleSearch}>
                                 <i className="fas fa-search"></i>
                             </button>
                         </div>

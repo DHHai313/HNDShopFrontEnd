@@ -2,6 +2,21 @@ import React from "react";
 
 function AdCarousel() {
   return (
+    //left
+    <div className="row ">
+        {/* Cột trái
+        <div className="col-md-1 d-none d-md-block px-0">
+          <div style={{ position: "sticky", top: "100px" }}>
+            <img
+              src="https://nguyencongpc.vn/media/banner/15_May2a4c611b470a828df395809a313f3397.webp"
+              alt=""
+              className="w-100"
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+        </div> */}
+
+        
     <div className="d-flex justify-content-center mt-4" style={{ padding: "0 20px" }}>
       <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" style={{ maxWidth: "1200px", width: "100%" }}>
         <div className="carousel-inner">
@@ -51,6 +66,20 @@ function AdCarousel() {
         </button>
       </div>
     </div>
+
+        {/* Cột phải
+        <div className="col-md-1 d-none d-md-block px-0">
+          <div style={{ position: "sticky", top: "100px" }}>
+            <img
+              src="https://nguyencongpc.vn/media/banner/27_Mayfa89a7eb5cdc9b7551f1b3a79831db91.webp"
+              alt=""
+              className="w-100"
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+        </div> */}
+      </div>
+    
   );
 }
 

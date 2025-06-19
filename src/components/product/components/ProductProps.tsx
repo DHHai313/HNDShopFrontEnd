@@ -41,22 +41,26 @@ const ProductProps: React.FC<ProductPropsInterface>=(props)=>{
             <div className="card h-100">
                 <img src={imageUrl || "https://via.placeholder.com/300"} className="card-img-top"
                 style={{height: '250px'}} />
-                <div className="card-body d-flex flex-column">
-                <h5 className="card-title text-truncate">{props.product.name}</h5>
-                <p className="card-text text-truncate-multiline">{props.product.description}</p>
-                <div className="price ">
-                        <span
-                        className="discounted-price"
-                        style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'red' }}>
-                            {props.product.price === 0
-                            ? 'Liên hệ'
-                            : props.product.price !== undefined
-                            ? `${props.product.price.toLocaleString()} đ`
-                            : ''}
-                        </span>
+               <div className="card-body d-flex flex-column justify-content-between">
+                <div>
+                    <h5 className="card-title text-truncate">{props.product.name}</h5>
+                    <p className="card-text text-truncate-multiline">{props.product.description}</p>
                 </div>
 
-                <div className="mt-auto">
+                <div>
+                    <div className="price mb-2">
+                    <span
+                        className="discounted-price"
+                        style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'red' }}
+                    >
+                        {props.product.price === 0
+                        ? 'Liên hệ'
+                        : props.product.price !== undefined
+                        ? `${props.product.price.toLocaleString()} đ`
+                        : ''}
+                    </span>
+                    </div>
+
                     <div className="row mt-2" role="group">
                     <div className="col-6">
                         <a href="#" className="btn btn-primary w-100">
@@ -72,6 +76,7 @@ const ProductProps: React.FC<ProductPropsInterface>=(props)=>{
                     </div>
                 </div>
                 </div>
+
             </div>
         </div>
     );
