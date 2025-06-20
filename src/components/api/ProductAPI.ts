@@ -42,12 +42,15 @@ export async function getAllProduct(currentPage:number): Promise<ResultInterface
 }
 
 //tim kiem http://localhost:8080/products/search/findByNameContaining?nameProduct=Canon
-export async function searchProducts(keyWord:string): Promise<ResultInterface> {
-
-  // endpoint
+export async function searchProducts(keyWord: string, categoryId: number): Promise<ResultInterface> {
   let url: string = `http://localhost:8080/products?sort=id,asc&size=8&page=0`;
-  if(keyWord !== ''){
+
+  if (keyWord !== '' && categoryId === 0) {
     url = `http://localhost:8080/products/search/findByNameContaining?sort=id,asc&size=8&page=0&nameProduct=${keyWord}`;
+  } else if (keyWord !== '' && categoryId > 0) {
+    url = `http://localhost:8080/products/search/findByCategoryId?sort=id,asc&size=8&page=0&categoryId=${categoryId}`;
+  } else if (keyWord === '' && categoryId > 0) {
+    url = `http://localhost:8080/products/search/findByCategoryId?sort=id,asc&size=8&page=0&categoryId=${categoryId}`;
   }
 
   return getProduct(url);

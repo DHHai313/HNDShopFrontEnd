@@ -2,6 +2,8 @@ import React, { ChangeEvent } from 'react';
 import { KeyboardEvent } from 'react';
 import './navbar.css';
 import { useState } from 'react';
+import HeaderList from './Header';
+import { Link } from 'react-router-dom';
 interface NavBarProps{
     searchQuery: string;
     setSearchQuery: (keyWord:string) => void;
@@ -27,10 +29,10 @@ function NavBar({searchQuery, setSearchQuery}: NavBarProps) {
             <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: '#4A90E2' }}>
                 <div className="container-fluid">
                     {/* Logo */}
-                    <a href="#" className="navbar-brand text-white fw-bold fs-4 ms-5 ps-5">
+                    <Link to="/" className="navbar-brand text-white fw-bold fs-4 ms-5 ps-5">
                         <i className="fas fa-laptop me-2"></i>
                         HNDSHOP
-                    </a>
+                    </Link>
 
                     {/* Thanh tìm kiếm */}
                     <div className="flex-grow-1 mx-4">
@@ -63,91 +65,8 @@ function NavBar({searchQuery, setSearchQuery}: NavBarProps) {
                     </div>
                 </div>
             </nav>
-
-            {/* Menu danh mục sản phẩm */}
-            <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-                <div className="container-fluid">
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarNav"
-                    >
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav me-auto">
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle fw-bold text-primary" href="#" role="button">
-                                    <i className="fas fa-list me-2"></i>
-                                    DANH MỤC SẢN PHẨM
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Máy tính để bàn</a></li>
-                                    <li><a className="dropdown-item" href="#">Laptop</a></li>
-                                    <li><a className="dropdown-item" href="#">Linh kiện PC</a></li>
-                                    <li><a className="dropdown-item" href="#">Camera</a></li>
-                                </ul>
-                            </li>
-
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" role="button">
-                                    <i className="fas fa-desktop me-1"></i>
-                                    Máy tính để bàn
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">PC Gaming</a></li>
-                                    <li><a className="dropdown-item" href="#">PC Văn phòng</a></li>
-                                    <li><a className="dropdown-item" href="#">PC Đồ họa</a></li>
-                                </ul>
-                            </li>
-
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" role="button">
-                                    <i className="fas fa-laptop me-1"></i>
-                                    Laptop
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Laptop Dell</a></li>
-                                    <li><a className="dropdown-item" href="#">Laptop Asus</a></li>
-                                    <li><a className="dropdown-item" href="#">Laptop Lenovo</a></li>
-                                </ul>
-                            </li>
-
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" role="button">
-                                    <i className="fas fa-memory me-1"></i>
-                                    Linh kiện 
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Chuột</a></li>
-                                    <li><a className="dropdown-item" href="#">Bàn phím</a></li>
-                                    <li><a className="dropdown-item" href="#">Tai nghe</a></li>
-                                </ul>
-                            </li>
-
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" role="button">
-                                    <i className="fas fa-camera me-1"></i>
-                                    Camera
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Camera Canon</a></li>
-                                    <li><a className="dropdown-item" href="#">Camera EOS</a></li>
-                                    
-                                </ul>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#footer">
-                                    <i className="fas fa-phone me-1"></i>
-                                    Liên Hệ
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+           <HeaderList/>
+            
         </div>
     );
 }

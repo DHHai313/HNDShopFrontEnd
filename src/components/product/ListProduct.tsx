@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import ProductProps from "./components/ProductProps";
 import ProductModel from "../model/ProductModel";
-import { getAllProduct, searchProducts } from "../api/ProductAPI";
+import { getAllProduct} from "../api/ProductAPI";
 import { error } from "console";
 import { Pagination } from "./Pagination";
-
+import { searchProducts } from "../api/ProductAPI";
 interface ListProductProps{
   searchQuery: string;
+  categoryId: number;
 }
-function ListProduct ({searchQuery}:ListProductProps) {
+function ListProduct ({searchQuery, categoryId}:ListProductProps) {
   const [listProduct, setListProduct] = useState<ProductModel[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const [isError, setIsError] = useState(null);
@@ -16,15 +17,15 @@ function ListProduct ({searchQuery}:ListProductProps) {
   const [totalPages, setTotalPages] = useState(0);
   const [totalElements, setTotalElements] = useState(0);
   const productListRef = useRef<HTMLDivElement>(null);
-
+  
   useEffect(() => {
   setCurrentPage(1);
-}, [searchQuery]);
+}, [searchQuery,categoryId]);
 
   // useEffect
  useEffect(() => {
   setLoadingData(true); // nên để tránh nhấp nháy khi đang chờ API
-  if (searchQuery === '') {
+  if (searchQuery === '' && categoryId === 0) {
     getAllProduct(currentPage - 1)
       .then((rs) => {
         setListProduct(rs.resultProduct);
@@ -34,7 +35,7 @@ function ListProduct ({searchQuery}:ListProductProps) {
       })
       .catch((error) => setIsError(error.message));
   } else {
-    searchProducts(searchQuery)
+    searchProducts(searchQuery, categoryId)
       .then((rs) => {
         setListProduct(rs.resultProduct);
         setTotalPages(rs.totalPages);
@@ -43,7 +44,7 @@ function ListProduct ({searchQuery}:ListProductProps) {
       })
       .catch((error) => setIsError(error.message));
   }
-}, [currentPage, searchQuery]);
+}, [currentPage, searchQuery,categoryId]);
 
 
   if (loadingData) {
