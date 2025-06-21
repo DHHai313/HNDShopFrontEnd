@@ -4,6 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Pagination } from '../product/Pagination';
 import ImageModel from '../model/ImageModel';
 import { getImageUrl } from '../api/ImageAPI';
+import {
+  createProduct,
+  updateProduct ,
+  deleteProduct ,
+} from "../api/ProductAPI";
+import { createImage } from '../api/ImageAPI';
+import { updateImage } from '../api/ImageAPI';
 // Định nghĩa kiểu Product
 interface Product {
   id: number;
@@ -35,18 +42,6 @@ const getCategoryId = (categoryName: string): string => {
   return entry ? entry[0] : categoryName;
 };
 
-// Mock APIs
-const addProduct = async (product: Omit<Product, 'id'>): Promise<Product> => {
-  return { id: Math.random(), ...product };
-};
-
-const updateProduct = async (id: number, product: Omit<Product, 'id'>): Promise<Product> => {
-  return { id, ...product };
-};
-
-const deleteProduct = async (id: number): Promise<void> => {
-  console.log(`Deleted product with id ${id}`);
-};
 
 const Admin: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -69,7 +64,6 @@ const Admin: React.FC = () => {
   const [listImage, setListImage] = useState<ImageModel[]>([]);
    
   // Effect để load danh sách sản phẩm
-  useEffect(() => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
@@ -97,39 +91,11 @@ const Admin: React.FC = () => {
       setLoading(false);
     }
   };
+  //UseEffect
+  useEffect(() => {
   fetchProducts();
 }, [currentPage]);
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     setLoading(true);
-  //     try {
-  //       // Giả định API trả về { resultProduct: Product[], totalItems: number }
-  //       const result = await getAllProduct(currentPage - 1); // API thường dùng page bắt đầu từ 0
-  //       setProducts(
-  //         result.resultProduct.map((p: any) => ({
-  //           id: p.id!,
-  //           name: p.name || '',
-  //           price: p.price || 0,
-  //           description: p.description || '',
-  //           image: p.image || '',
-  //           brand: p.brand || '',
-  //           stock: p.stock || 0,
-  //           category: p.category || '1',
-  //         }))
-  //       );
-  //       // Tính tổng số trang dựa trên totalItems
-  //       setTotalPages(Math.ceil(result.totalPages / itemsPerPage));
-  //     } catch (err) {
-  //       setError('Không thể tải danh sách sản phẩm');
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchProducts();
-  // }, [currentPage]); // Chạy lại khi currentPage thay đổi
-  //useEffect
-    
-  // Hàm xử lý chuyển trang
+ 
   const handlePagination = (page: number) => {
     setCurrentPage(page);
   };
@@ -145,39 +111,55 @@ const Admin: React.FC = () => {
 
   // Xử lý submit form
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      if (editId !== null) {
-        const updatedProduct = await updateProduct(editId, formData);
-        setProducts(products.map((p) => (p.id === editId ? updatedProduct : p)));
-        setEditId(null);
+  e.preventDefault();
+  try {
+    if (editId !== null) {
+      const updatedProduct = await updateProduct(editId, formData);
+      setProducts(products.map((p) => (p.id === editId ? updatedProduct : p)));
+       const images = await getImageUrl(editId);
+      if (images.length > 0) {
+      // Nếu có ảnh, cập nhật ảnh đầu tiên
+      await updateImage(images[0].id, formData.image, formData.name, editId);
       } else {
-        const newProduct = await addProduct(formData);
-        setProducts([...products, newProduct]);
-        // Quay về trang 1 khi thêm sản phẩm mới
-        setCurrentPage(1);
+      // Nếu chưa có ảnh, tạo ảnh mới
+      await createImage(editId, formData.image, formData.name);
       }
-      resetForm();
-    } catch (err) {
-      setError('Lỗi khi lưu sản phẩm');
+      setEditId(null);
+    } else {
+      const newProduct = await createProduct(formData);
+
+      // 👇 Thêm ảnh sau khi tạo sản phẩm
+      await createImage(newProduct.id, formData.image, formData.name);
+
+      setProducts([newProduct, ...products]);
+      if (currentPage !== 1) {
+        setCurrentPage(1);
+      } else {
+        fetchProducts();
+      }
     }
-  };
+    resetForm();
+  } catch (err) {
+    setError('Lỗi khi lưu sản phẩm: ' + (err as Error).message);
+  }
+};
+
 
   // Xử lý xóa sản phẩm
   const handleDelete = async (id: number) => {
-    if (window.confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
-      try {
-        await deleteProduct(id);
-        setProducts(products.filter((p) => p.id !== id));
-        // Nếu trang hiện tại trống sau khi xóa, chuyển về trang trước
-        if (products.length === 1 && currentPage > 1) {
-          setCurrentPage(currentPage - 1);
-        }
-      } catch (err) {
-        setError('Lỗi khi xóa sản phẩm');
+  if (window.confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
+    try {
+      await deleteProduct(id);
+      setProducts(products.filter((p) => p.id !== id));
+      if (products.length === 1 && currentPage > 1) {
+        setCurrentPage(currentPage - 1);
       }
+    } catch (err) {
+      setError('Lỗi khi xóa sản phẩm: ' + (err as Error).message);
     }
-  };
+  }
+};
+
 
   // Xử lý chỉnh sửa sản phẩm
   const handleEdit = (product: Product) => {

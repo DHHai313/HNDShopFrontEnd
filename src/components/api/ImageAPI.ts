@@ -20,3 +20,37 @@ export async function getImageUrl(id: number): Promise<ImageModel[]> {
 
     return result;
 }
+export async function createImage(productId: number, iconUrl: string, name: string): Promise<void> {
+  const response = await fetch('http://localhost:8080/images', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      icon: iconUrl,
+      name: name,
+      product: `/products/${productId}`,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Không thể thêm ảnh');
+  }
+}
+export async function updateImage(imageId: number, iconUrl: string, name: string, productId: number): Promise<void> {
+  const response = await fetch(`http://localhost:8080/images/${imageId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      icon: iconUrl,
+      name: name,
+      product: `/products/${productId}`
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Không thể cập nhật ảnh');
+  }
+}

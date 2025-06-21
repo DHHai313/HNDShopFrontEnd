@@ -32,10 +32,69 @@ export async function getProduct(url: string): Promise<ResultInterface> {
 
     return {resultProduct: result, totalPages: totalPages,totalElements: totalElements};
 }
+// ProductAPI.ts
+
+const BASE_URL = 'http://localhost:8080/products';
+
+export async function createProduct(product: any): Promise<any> {
+  const response = await fetch(BASE_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ...product,
+      category: `/categories/${product.category}`, // Spring Data REST yêu cầu path
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Không thể thêm sản phẩm');
+  }
+
+  const createdProduct = await response.json();
+  return { ...product, id: extractIdFromUrl(createdProduct._links.self.href) };
+}
+
+export async function updateProduct(id: number, product: any): Promise<any> {
+  const response = await fetch(`${BASE_URL}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ...product,
+      category: `/categories/${product.category}`,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Không thể cập nhật sản phẩm');
+  }
+
+  return { id, ...product };
+}
+
+export async function deleteProduct(id: number): Promise<void> {
+  const response = await fetch(`${BASE_URL}/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    throw new Error('Không thể xóa sản phẩm');
+  }
+}
+
+// Tiện ích tách ID từ URL trả về (vd: http://localhost:8080/products/123)
+function extractIdFromUrl(url: string): number {
+  const parts = url.split('/');
+  return parseInt(parts[parts.length - 1]);
+}
+
 
 export async function getAllProduct(currentPage:number): Promise<ResultInterface> {
     
-    const url: string = `http://localhost:8080/products?sort=id,asc&size=8&page=${currentPage}`;
+    const url: string = `http://localhost:8080/products?sort=id,desc&size=8&page=${currentPage}`;
     
 
     return getProduct(url);
@@ -43,17 +102,16 @@ export async function getAllProduct(currentPage:number): Promise<ResultInterface
 
 //tim kiem http://localhost:8080/products/search/findByNameContaining?nameProduct=Canon
 export async function searchProducts(keyWord: string, categoryId: number): Promise<ResultInterface> {
-  let url: string = `http://localhost:8080/products?sort=id,asc&size=8&page=0`;
+  let url: string = `http://localhost:8080/products?sort=id,desc&size=8&page=0`;
 
   if (keyWord !== '' && categoryId === 0) {
-    url = `http://localhost:8080/products/search/findByNameContaining?sort=id,asc&size=8&page=0&nameProduct=${keyWord}`;
+    url = `http://localhost:8080/products/search/findByNameContaining?sort=id,desc&size=8&page=0&nameProduct=${keyWord}`;
   } else if (keyWord !== '' && categoryId > 0) {
-    url = `http://localhost:8080/products/search/findByCategoryId?sort=id,asc&size=8&page=0&categoryId=${categoryId}`;
+    url = `http://localhost:8080/products/search/findByCategoryId?sort=id,desc&size=8&page=0&categoryId=${categoryId}`;
   } else if (keyWord === '' && categoryId > 0) {
-    url = `http://localhost:8080/products/search/findByCategoryId?sort=id,asc&size=8&page=0&categoryId=${categoryId}`;
+    url = `http://localhost:8080/products/search/findByCategoryId?sort=id,desc&size=8&page=0&categoryId=${categoryId}`;
   }
 
   return getProduct(url);
 }
-
 
