@@ -5,11 +5,13 @@ import { getAllProduct} from "../api/ProductAPI";
 import { error } from "console";
 import { Pagination } from "./Pagination";
 import { searchProducts } from "../api/ProductAPI";
+import { searchByBrand } from "../api/ProductAPI";
 interface ListProductProps{
   searchQuery: string;
   categoryId: number;
+  brandName?: string;
 }
-function ListProduct ({searchQuery, categoryId}:ListProductProps) {
+function ListProduct ({searchQuery, categoryId, brandName}:ListProductProps) {
   const [listProduct, setListProduct] = useState<ProductModel[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const [isError, setIsError] = useState(null);
@@ -18,33 +20,48 @@ function ListProduct ({searchQuery, categoryId}:ListProductProps) {
   const [totalElements, setTotalElements] = useState(0);
   const productListRef = useRef<HTMLDivElement>(null);
   
-  useEffect(() => {
-  setCurrentPage(1);
-}, [searchQuery,categoryId]);
 
   // useEffect
  useEffect(() => {
-  setLoadingData(true); // nên để tránh nhấp nháy khi đang chờ API
-  if (searchQuery === '' && categoryId === 0) {
-    getAllProduct(currentPage - 1)
-      .then((rs) => {
+  setCurrentPage(1);
+}, [searchQuery, categoryId, brandName]);
+
+useEffect(() => {
+  console.log({ searchQuery, categoryId, brandName, currentPage }); // Debug
+  setLoadingData(true);
+
+  if (brandName && brandName !== "") {
+    searchByBrand(brandName, currentPage-1)
+      .then(rs => {
         setListProduct(rs.resultProduct);
         setTotalPages(rs.totalPages);
         setTotalElements(rs.totalElements);
         setLoadingData(false);
       })
-      .catch((error) => setIsError(error.message));
+      .catch(err => setIsError(err.message));
+  } else if (searchQuery === "" && categoryId === 0) {
+    getAllProduct(currentPage)
+      .then(rs => {
+        setListProduct(rs.resultProduct);
+        setTotalPages(rs.totalPages);
+        setTotalElements(rs.totalElements);
+        setLoadingData(false);
+      })
+      .catch(err => setIsError(err.message));
   } else {
     searchProducts(searchQuery, categoryId)
-      .then((rs) => {
+      .then(rs => {
         setListProduct(rs.resultProduct);
         setTotalPages(rs.totalPages);
         setTotalElements(rs.totalElements);
         setLoadingData(false);
       })
-      .catch((error) => setIsError(error.message));
+      .catch(err => setIsError(err.message));
   }
-}, [currentPage, searchQuery,categoryId]);
+}, [searchQuery, categoryId, brandName, currentPage]);
+
+
+
 
 
   if (loadingData) {

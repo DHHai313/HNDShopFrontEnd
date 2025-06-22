@@ -12,7 +12,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Admin from './components/admin/admin';
 import HomePage from './components/homepage/HomePage';
-
+import RegisterUser from './components/user/RegisterUser';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -24,11 +24,14 @@ function App() {
           <Banner />
            <NavBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
           <Routes>
-            <Route path='/' element={ <HomePage searchQuery={searchQuery} />}></Route>
-            <Route path='/:categoryId' element={<HomePage key={window.location.pathname} searchQuery={searchQuery}/>}></Route>
-            <Route path='/admin' element={<Admin/>}></Route>
-           
-          </Routes>
+          <Route path="/brand/:brandName" element={<HomePage key={window.location.pathname} searchQuery={searchQuery} />} />
+          <Route path="/category/:categoryId" element={<HomePage key={window.location.pathname} searchQuery={searchQuery} />} />
+          <Route path="/" element={<HomePage searchQuery={searchQuery} />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/register" element={<RegisterUser />} />
+        </Routes>
+
+
         <Footer />
        </Router>
         

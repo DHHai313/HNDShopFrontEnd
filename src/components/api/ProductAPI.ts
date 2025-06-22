@@ -115,3 +115,11 @@ export async function searchProducts(keyWord: string, categoryId: number): Promi
   return getProduct(url);
 }
 
+export async function searchByBrand(brand: string,currentPage: number): Promise<ResultInterface> {
+ 
+  
+    const url = `http://localhost:8080/products/search/findByBrand?sort=id,desc&size=8&page=${currentPage}&brand=${brand}`;
+  
+  return getProduct(url);
+}
+

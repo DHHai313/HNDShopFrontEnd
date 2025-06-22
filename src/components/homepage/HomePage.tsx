@@ -8,12 +8,16 @@ interface HomePageProps{
 }
 function HomePage({searchQuery}: HomePageProps){
 
-    const {categoryId} = useParams();
+    const {categoryId, brandName} = useParams();
     const categoryIdNumber = categoryId ? parseInt(categoryId) : 0;
     return(
         <div>
         <AdCarousel />
-        <ListProduct searchQuery={searchQuery} categoryId = {categoryIdNumber}/>
+        <ListProduct
+        searchQuery={searchQuery}
+        categoryId={categoryIdNumber}
+        brandName={brandName || ""}
+      />
         </div>
     );
 }
