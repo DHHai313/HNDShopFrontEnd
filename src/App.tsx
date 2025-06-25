@@ -13,6 +13,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Admin from './components/admin/admin';
 import HomePage from './components/homepage/HomePage';
 import RegisterUser from './components/user/RegisterUser';
+import EnableAccount from './components/user/EnableAccount';
+import Login from './components/login/Login';
+import Test from './components/user/Test';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -28,7 +31,10 @@ function App() {
           <Route path="/category/:categoryId" element={<HomePage key={window.location.pathname} searchQuery={searchQuery} />} />
           <Route path="/" element={<HomePage searchQuery={searchQuery} />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/test" element={<Test />} />
           <Route path="/register" element={<RegisterUser />} />
+          <Route path='/enable/:email/:enableCode' element={<EnableAccount />}></Route>
         </Routes>
 
 

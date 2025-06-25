@@ -58,7 +58,7 @@ function NavBar({searchQuery, setSearchQuery}: NavBarProps) {
                             <span className="d-none d-md-inline">Giỏ Hàng</span>
                             <span className="badge bg-danger ms-1">0</span>
                         </a>
-                        <a href="#" className="text-white text-decoration-none d-flex align-items-center">
+                        <a href="/login" className="text-white text-decoration-none d-flex align-items-center">
                             <i className="fas fa-user me-1"></i>
                             <span className="d-none d-md-inline">Đăng Nhập/Đăng Ký</span>
                         </a>

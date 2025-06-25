@@ -11,7 +11,7 @@ function RegisterUser() {
     const [gender, setGender] = useState(1);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+    const [successMessage, setSuccessMessage] = useState('');
     // Báo lỗi
     const [errorUsername, setErrorUsername] = useState('');
     const [errorEmail, setErrorEmail] = useState('');
@@ -24,7 +24,7 @@ function RegisterUser() {
     // Xử lý submit
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        setSuccessMessage('');
         let hasError = false;
 
         // Kiểm tra tất cả các field
@@ -69,12 +69,14 @@ function RegisterUser() {
                     password: password,
                     gender: gender,
                     address: "",             
-                    shippingAddress: ""
+                    shippingAddress: "",
+                    enabled: false,
+                    enabledCode: ""
                 })
             });
 
             if (response.ok) {
-                alert("Đăng ký thành công!");
+                setSuccessMessage("Đăng ký thành công, vui lòng mở email của bạn để kích hoạt tài khoản"); 
                 // Reset form
                 setUsername('');
                 setEmail('');
@@ -317,6 +319,11 @@ function RegisterUser() {
                     <div className="mb-3 text-center">
                         <button type="submit" className="btn btn-primary">Đăng Ký</button>
                     </div>
+                    {successMessage && (
+                        <div className="text-center">
+                            <span style={{ color: 'green', fontWeight: 'bold' }}>{successMessage}</span>
+                        </div>
+                    )}
                 </form>
             </div>
         </div>

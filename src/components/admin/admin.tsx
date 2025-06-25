@@ -112,6 +112,7 @@ const Admin: React.FC = () => {
   // Xử lý submit form
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+  
   try {
     if (editId !== null) {
       const updatedProduct = await updateProduct(editId, formData);
@@ -141,6 +142,7 @@ const Admin: React.FC = () => {
     resetForm();
   } catch (err) {
     setError('Lỗi khi lưu sản phẩm: ' + (err as Error).message);
+    console.error(err);
   }
 };
 
