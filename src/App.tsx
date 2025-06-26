@@ -16,6 +16,7 @@ import RegisterUser from './components/user/RegisterUser';
 import EnableAccount from './components/user/EnableAccount';
 import Login from './components/login/Login';
 import Test from './components/user/Test';
+import Admin_ from './components/admin/admin';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,7 +31,7 @@ function App() {
           <Route path="/brand/:brandName" element={<HomePage key={window.location.pathname} searchQuery={searchQuery} />} />
           <Route path="/category/:categoryId" element={<HomePage key={window.location.pathname} searchQuery={searchQuery} />} />
           <Route path="/" element={<HomePage searchQuery={searchQuery} />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin" element={<Admin_ />} />
           <Route path="/login" element={<Login />} />
           <Route path="/test" element={<Test />} />
           <Route path="/register" element={<RegisterUser />} />

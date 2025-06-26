@@ -11,6 +11,7 @@ import {
 } from "../api/ProductAPI";
 import { createImage } from '../api/ImageAPI';
 import { updateImage } from '../api/ImageAPI';
+import RequireAdmin from './RequireAdmin';
 // Định nghĩa kiểu Product
 interface Product {
   id: number;
@@ -43,7 +44,7 @@ const getCategoryId = (categoryName: string): string => {
 };
 
 
-const Admin: React.FC = () => {
+const Admin: React.FC = (props) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [formData, setFormData] = useState<Omit<Product, 'id'>>({
     name: '',
@@ -554,5 +555,5 @@ const Admin: React.FC = () => {
     </div>
   );
 };
-
-export default Admin;
+const Admin_ = RequireAdmin(Admin);
+export default Admin_;
