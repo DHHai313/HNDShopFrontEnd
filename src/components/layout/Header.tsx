@@ -30,18 +30,18 @@ function HeaderList(){
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="/category/2" role="button">
+                                <Link className="nav-link dropdown-toggle" to="/category/2" role="button">
                                     <i className="fas fa-desktop me-1"></i>
                                     Máy tính để bàn
-                                </a>
+                                </Link>
                                
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="/category/4" role="button">
+                                <Link className="nav-link dropdown-toggle" to="/category/4" role="button">
                                     <i className="fas fa-laptop me-1"></i>
                                     Laptop
-                                </a>
+                                </Link>
                                 <ul className="dropdown-menu">
                                 <li><Link className="dropdown-item" to="/brand/Dell">Laptop Dell</Link></li>
                                 <li><Link className="dropdown-item" to="/brand/Asus">Laptop Asus</Link></li>
@@ -50,7 +50,7 @@ function HeaderList(){
                             </li>
 
                             <li className="nav-item dropdown">
-                                <Link className="nav-link dropdown-toggle" to="/category/3" role="button">
+                                <Link className="nav-link dropdown-toggle" to="/category/3">
                                     <i className="fas fa-memory me-1"></i>
                                     Linh kiện 
                                 </Link>
